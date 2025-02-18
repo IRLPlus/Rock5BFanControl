@@ -19,7 +19,7 @@ This is a bash script designed to modify the cooling levels in the device tree b
 
 ## Installation & Usage
 
-Ensure that `curl` is installed on your system. If it isn't already installed, run:
+Ensure that `curl` is installed on your system in order to run:
 
 ```bash
 sudo apt update
