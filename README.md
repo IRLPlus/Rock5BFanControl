@@ -20,4 +20,4 @@ This is a bash script designed to modify the cooling levels in the device tree b
 ## Installation & Usage
 
 ```bash
-sudo curl -sL https://raw.githubusercontent.com/IRLPlus/Rock5BFanControl/refs/heads/main/fan.sh | bash
+sudo curl -sL https://raw.githubusercontent.com/IRLPlus/Rock5BFanControl/main/fan.sh | bash
