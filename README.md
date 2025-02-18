@@ -15,9 +15,15 @@ This is a bash script designed to modify the cooling levels in the device tree b
 
 - **Operating System:** Debian/Ubuntu or another Linux distribution with `apt` package manager.
 - **Root Privileges:** The script must be run with root permissions.
-- **Dependencies:** The script will install the `device-tree-compiler` if it's not already installed.
+- **Dependencies:** The script will install the `device-tree-compiler` if it's not already installed. You will also need `curl` to download the script if you're not copy/pasting.
 
 ## Installation & Usage
 
+Ensure that `curl` is installed on your system. If it isn't already installed, run:
+
 ```bash
-sudo curl -sL https://raw.githubusercontent.com/IRLPlus/Rock5BFanControl/main/fan.sh | bash
+sudo apt update
+sudo apt install -y curl
+curl -O https://raw.githubusercontent.com/IRLPlus/Rock5BFanControl/main/fan.sh
+chmod +x fan.sh
+sudo ./fan.sh
