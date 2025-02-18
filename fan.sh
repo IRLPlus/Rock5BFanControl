@@ -13,16 +13,19 @@
 # To run this script from GitHub:
 #   sudo curl -sL https://raw.githubusercontent.com/<your-username>/<your-repo>/main/rock5bplus-fan-control.sh | bash
 
-# Define file paths
-DTB_FILE="/boot/dtb/rockchip/rk3588-rock-5b-plus.dtb"
-BACKUP_FILE="/boot/dtb/rockchip/rk3588-rock-5b-plus.dtb.bak"
-DTS_FILE="/tmp/rk3588-rock-5b-plus.dts"
-
 # Ensure the script is run as root
 if [ "$(id -u)" -ne 0 ]; then
     echo "This script must be run as root. Try running with sudo."
     exit 1
 fi
+
+# Force interactive input from /dev/tty even if piped
+exec </dev/tty
+
+# Define file paths
+DTB_FILE="/boot/dtb/rockchip/rk3588-rock-5b-plus.dtb"
+BACKUP_FILE="/boot/dtb/rockchip/rk3588-rock-5b-plus.dtb.bak"
+DTS_FILE="/tmp/rk3588-rock-5b-plus.dts"
 
 # Ensure device-tree-compiler is installed
 if ! command -v dtc &> /dev/null; then
@@ -50,8 +53,8 @@ fi
 # Ask the user which fan mode to set
 echo "Choose the fan mode you want to apply:"
 echo "1) Force full fan speed (fan always on full speed)"
-echo "2) Restore default cooling levels (<0x00 0x40 0x80 0xc0 0xff)"
-read -p "Enter your choice (1 or 2): " choice </dev/tty
+echo "2) Restore default cooling levels (<0x00 0x40 0x80 0xc0 0xff>)"
+read -p "Enter your choice (1 or 2): " choice
 
 case "$choice" in
     1)
@@ -90,7 +93,7 @@ rm -f "$DTS_FILE"
 echo "DTB modification complete."
 
 # Prompt the user to reboot
-read -p "Would you like to reboot now for changes to take effect? (y/n): " answer </dev/tty
+read -p "Would you like to reboot now for changes to take effect? (y/n): " answer
 if [[ "$answer" =~ ^[Yy]$ ]]; then
     echo "Rebooting..."
     reboot
