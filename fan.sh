@@ -8,10 +8,6 @@
 #   1. Force full fan speed (fan always on full speed)
 #   2. Restore default cooling levels (<0x00 0x40 0x80 0xc0 0xff>)
 #
-# After making the changes, it recompiles the DTB and then prompts you to reboot.
-#
-# To run this script from GitHub:
-#   sudo curl -sL https://raw.githubusercontent.com/<your-username>/<your-repo>/main/rock5bplus-fan-control.sh | bash
 
 # Ensure the script is run as root
 if [ "$(id -u)" -ne 0 ]; then
