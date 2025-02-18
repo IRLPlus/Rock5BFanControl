@@ -19,9 +19,6 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
 fi
 
-# Force interactive input from /dev/tty even if piped
-exec </dev/tty
-
 # Define file paths
 DTB_FILE="/boot/dtb/rockchip/rk3588-rock-5b-plus.dtb"
 BACKUP_FILE="/boot/dtb/rockchip/rk3588-rock-5b-plus.dtb.bak"
@@ -50,11 +47,11 @@ if ! dtc -I dtb -O dts -o "$DTS_FILE" "$DTB_FILE" > /dev/null 2>&1; then
     exit 1
 fi
 
-# Ask the user which fan mode to set
+# Ask the user which fan mode to set (reading explicitly from /dev/tty)
 echo "Choose the fan mode you want to apply:"
 echo "1) Force full fan speed (fan always on full speed)"
 echo "2) Restore default cooling levels (<0x00 0x40 0x80 0xc0 0xff>)"
-read -p "Enter your choice (1 or 2): " choice
+read -p "Enter your choice (1 or 2): " choice </dev/tty
 
 case "$choice" in
     1)
@@ -92,8 +89,8 @@ rm -f "$DTS_FILE"
 
 echo "DTB modification complete."
 
-# Prompt the user to reboot
-read -p "Would you like to reboot now for changes to take effect? (y/n): " answer
+# Prompt the user to reboot (again reading explicitly from /dev/tty)
+read -p "Would you like to reboot now for changes to take effect? (y/n): " answer </dev/tty
 if [[ "$answer" =~ ^[Yy]$ ]]; then
     echo "Rebooting..."
     reboot
